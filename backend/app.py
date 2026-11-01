@@ -122,7 +122,13 @@ def ask_model(system, user, max_tokens=2200):
     except Exception:
         logging.exception("OpenAI request failed")
         return None
-
+@app.route("/")
+def home():
+    return jsonify({
+        "message": "AI Editorial Workspace Backend",
+        "status": "running",
+        "health": "/api/health"
+    })
 @app.get("/api/health")
 def health():
     return jsonify({"ok": True, "ai_enabled": bool(os.getenv("OPENAI_API_KEY", "").strip())})
